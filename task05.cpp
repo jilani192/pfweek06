@@ -1,27 +1,54 @@
 #include <iostream>
 using namespace std;
-float totalincome(string screening, int rows, int columns);
-int main()
+float bill(char codetype, char time, int numberofminutes);
+main()
 {
-    string screening;
-    int rows, columns;
-    cout << "Enter type of screening : ";
-    cin >> screening;
-    cout << "Enter type of rows : ";
-    cin >> rows;
-    cout << "Enter type of columns : ";
-    cin >> columns;
-    cout << "Total income is = " << totalincome(screening, rows, columns);
+    char codetype;
+    char time;
+    int numberofminutes;
+    float result;
+    cout << "Enter your call type (p/P for Premium & r/R for Regular) : ";
+    cin >> codetype;
+    cout << "Press D for day & N for night calls                      : ";
+    cin >> time;
+    cout << "Enter number of minutes you used the service             : ";
+    cin >> numberofminutes;
+    result = bill(codetype, time, numberofminutes);
+    if (result > 0)
+    {
+        cout << "Yor payable charges are = " << result;
+    }
+    else
+    {
+        cout << "Code Type Error! Please enter the correct type ";
+    }
 }
-float totalincome(string screening, int rows, int columns)
+float bill(char codetype, char time, int numberofminutes)
 {
-    float bill;
-    float premiere = 12.00, normal = 7.50, discount = 5.00;
-    if (screening == "premiere")
-        bill = (premiere * (rows * columns));
-    else if (screening == "normal")
-        bill = (normal * (rows * columns));
-    else if (screening == "discount")
-        bill = (discount * (rows * columns));
-    return bill;
+    float amount;
+    if ((codetype == 'P' || codetype == 'p') && ((time == 'D' && numberofminutes <= 75) || (time == 'N' && numberofminutes <= 100)))
+    {
+        amount = 25.00;
+    }
+    else if ((codetype == 'P' || codetype == 'p') && time == 'D' && numberofminutes > 75)
+    {
+        amount = (numberofminutes * 0.10) + 25.00;
+    }
+    else if ((codetype == 'P' || codetype == 'p') && time == 'N' && numberofminutes > 100)
+    {
+        amount = (numberofminutes * 0.05) + 25.00;
+    }
+    else if ((codetype == 'R' || codetype == 'r') && numberofminutes <= 50)
+    {
+        amount = 10.00;
+    }
+    else if ((codetype == 'R' || codetype == 'r') && numberofminutes > 50)
+    {
+        amount = (numberofminutes * 0.20) + numberofminutes;
+    }
+    else
+    {
+        return 0;
+    }
+    return amount;
 }

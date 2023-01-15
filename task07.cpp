@@ -1,61 +1,82 @@
 #include <iostream>
 using namespace std;
-float checkcost(string city, string product, int quantity);
-int main()
+int timefunction(int examhour, int examminutes, int arrivalhour, int arrivalminutes);
+
+main()
 {
-    system("cls");
-    cout << "Rate list : " << endl;
-    cout << "________________________________________________________" << endl;
-    cout << "|   products   |  sharaqpur   |   lahore   |   multan  |" << endl;
-    cout << "|   coffee     |  0.50        |   0.40     |   0.45    |" << endl;
-    cout << "|   water      |  0.80        |   0.70     |   0.70    |" << endl;
-    cout << "|   milk       |  0.20        |   0.15     |   0.10    |" << endl;
-    cout << "|   sweets     |  1.45        |   1.30     |   1.35    |" << endl;
-    cout << "|   peanuts    |  1.60        |   1.50     |   1.55    |" << endl;
-    cout << "________________________________________________________" << endl;
-    string product, city;
-    int quantity;
-    cout << "Enter name of your city : ";
-    cin >> city;
-    cout << "Enter name of product : ";
-    cin >> product;
-    cout << "Enter quantity of product : ";
-    cin >> quantity;
-    cout << "Cost of products is =" << checkcost(city, product, quantity);
-    return 0;
+    int examhour;
+    int examminutes;
+    int arrivalhour;
+    int arrivalminutes;
+    int value1;
+    int value2;
+    int answer;
+    cout << "Enter exam starting time    (hour) : ";
+    cin >> examhour;
+    cout << "Enter exam starting time (minutes) : ";
+    cin >> examminutes;
+    cout << "Enter arrival time in  hour        : ";
+    cin >> arrivalhour;
+    cout << "Enter arrival time in minutes      : ";
+    cin >> arrivalminutes;
+    if (examhour < 23 && arrivalhour < 23 && examminutes < 60 && arrivalminutes < 60)
+    {
+        value1 = (examhour * 60) + examminutes;
+        value2 = (arrivalhour * 60) + arrivalminutes;
+        int value3 = value2 - value1;
+        answer = timefunction(examhour, examminutes, arrivalhour, arrivalminutes);
+        if (answer > 59)
+        {
+            if (value3 == 0)
+            {
+                cout << "At time " << answer / 60 << ":" << answer % 60;
+            }
+            else if (value3 > 0)
+            {
+                cout << "Late " << answer / 60 << ":" << answer % 60;
+            }
+            else
+            {
+                cout << "before time " << answer / 60 << ":" << answer % 60;
+            }
+        }
+        else if (answer <= 59)
+        {
+            if (value3 == 0)
+            {
+                cout << "At time " << answer / 60 << ":" << answer % 60;
+            }
+            else if (value3 > 0)
+            {
+                cout << "Late " << answer / 60 << ":" << answer % 60;
+            }
+            else
+            {
+                cout << "before time " << answer / 60 << ":" << answer % 60;
+            }
+        }
+        else
+        {
+            cout << "output error";
+        }
+    }
+    else
+    {
+        cout << "Please enter correct time according to formate.";
+    }
 }
-float checkcost(string city, string product, int quantity)
+int timefunction(int examhour, int examminutes, int arrivalhour, int arrivalminutes)
 {
-    float cost;
-    if (city == "sharaqpur" && product == "coffee")
-        cost = 0.50 * quantity;
-    if (city == "sharaqpur" && product == "water")
-        cost = 0.80 * quantity;
-    if (city == "sharaqpur" && product == "milk")
-        cost = 1.20 * quantity;
-    if (city == "sharaqpur" && product == "sweets")
-        cost = 1.45 * quantity;
-    if (city == "sharaqpur" && product == "peanuts")
-        cost = 1.60 * quantity;
-    if (city == "lahore" && product == "coffee")
-        cost = 0.40 * quantity;
-    if (city == "lahore" && product == "water")
-        cost = 0.70 * quantity;
-    if (city == "lahore" && product == "milk")
-        cost = 1.15 * quantity;
-    if (city == "lahore" && product == "sweets")
-        cost = 1.30 * quantity;
-    if (city == "lahore" && product == "peanuts")
-        cost = 1.50 * quantity;
-    if (city == "multan" && product == "coffee")
-        cost = 0.45 * quantity;
-    if (city == "multan" && product == "water")
-        cost = 0.70 * quantity;
-    if (city == "multan" && product == "milk")
-        cost = 1.10 * quantity;
-    if (city == "multan" && product == "sweets")
-        cost = 1.35 * quantity;
-    if (city == "multan" && product == "peanuts")
-        cost = 1.55 * quantity;
-    return cost;
+    int finalanswer;
+    int answer;
+    answer = ((arrivalhour * 60) + arrivalminutes) - ((examhour * 60) + examminutes);
+    if (answer < 0)
+    {
+        finalanswer = answer * (-1);
+    }
+    else
+    {
+        finalanswer = answer;
+    }
+    return finalanswer;
 }
